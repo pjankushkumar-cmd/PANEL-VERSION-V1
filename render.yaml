@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: hackii-predict
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 30
+    envVars:
+      - key: ADMIN_MASTER_KEY
+        sync: false
+    disk:
+      name: hackii-data
+      mountPath: /var/data
+      sizeGB: 1
